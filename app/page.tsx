@@ -2,6 +2,26 @@ import { CurrentWeather, GetCurrentWeatherData } from "@/global/types";
 import Image from "next/image";
 
 const getCurrentWeatherData: GetCurrentWeatherData = async(location) => {
+  
+  // // handle success case
+  // function onSuccess(position) {
+  //   const {
+  //       latitude,
+  //       longitude
+  //   } = position.coords;
+
+  //   message.classList.add('success');
+  //   message.textContent = `Your location: (${latitude},${longitude})`;
+  // }
+
+  // // handle error case
+  // function onError() {
+  //   message.classList.add('error');
+  //   message.textContent = `Failed to get your location!`;
+  // }
+
+  // navigator.geolocation.getCurrentPosition(onSuccess, onError);
+
   const options = {
     method: 'GET',
     headers: {accept: 'application/json'}
@@ -18,12 +38,13 @@ const getCurrentWeatherData: GetCurrentWeatherData = async(location) => {
 }
 
 export default async function Home() {
-  const currentWeatherData = await getCurrentWeatherData('tiel');
+  const currentWeatherData = await getCurrentWeatherData('nederland');
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p>{currentWeatherData.location.name}</p>
+        <p>{currentWeatherData.data.values.weatherCode}</p>
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
           <code className="font-mono font-bold">app/page.tsx</code>
