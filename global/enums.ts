@@ -1,8 +1,8 @@
-enum WeatherCode {
-    Clear = 1000,
-    MostlyClear = 1100,
-    PartlyCloudy = 1101,
-    MostlyCloudy = 1102,
+export enum WeatherCode {
+    ClearDay = 1000,
+    MostlyClearDay = 1100,
+    PartlyCloudyDay = 1101,
+    MostlyCloudyDay = 1102,
     Cloudy =  1001,
     LightFog = 2100,
     Fog = 2000,
@@ -15,11 +15,11 @@ enum WeatherCode {
     Snow = 5000,
     HeavySnow = 5101,
     FreezingDrizzle = 6000,
-    LightFreezingDrizzle = 6200,
+    LightFreezingRain = 6200,
     FreezingRain = 6001,
     HeavyFreezingRain = 6201,
     LightIcePellets = 7102,
-    Iceellets = 7000,
+    IcePellets = 7000,
     HeavyIcePellets = 7101,
     Thunderstorm = 8000,
 }
