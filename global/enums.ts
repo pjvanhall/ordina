@@ -2,7 +2,7 @@ export enum WeatherCode {
     ClearDay = 1000,
     MostlyClearDay = 1100,
     PartlyCloudyDay = 1101,
-    MostlyCloudyDay = 1102,
+    MostlyCloudy = 1102,
     Cloudy =  1001,
     LightFog = 2100,
     Fog = 2000,

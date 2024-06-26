@@ -7,7 +7,7 @@ export default function Error({
   reset,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  reset: () => void,
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
