@@ -10,7 +10,7 @@ const getCurrentWeatherData: GetCurrentWeatherData = async(location) => {
   };
 
   const response = await fetch(`${process.env.TOMORROW_API_URL}?location=${location}&apikey=${process.env.TOMORROW_API_KEY}`, options);
-  
+ 
   if (!response.ok) {
     const res = await response.json();
    
@@ -21,9 +21,11 @@ const getCurrentWeatherData: GetCurrentWeatherData = async(location) => {
 }
 
 export default async function Page({ params }: { params: { geoLocation?: string[] } }) {
+  
+  const geoLocation = params?.geoLocation?.[0];
 
-  const {location : { name : locationName }, data: {time, values: {weatherCode, temperature}}} = await getCurrentWeatherData(params?.geoLocation?.[0]!);
-
+  const {location : { name : locationName }, data: {time, values: {weatherCode, temperature}}} = await getCurrentWeatherData(geoLocation!);
+  
   const weatherCodeValue = WeatherCode[weatherCode];
 
   const svgName = `${weatherCodeValue.replace(/([a-z])([A-Z])/g, '$1_$2').toLowerCase()}.svg`;
