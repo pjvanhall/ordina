@@ -7,5 +7,5 @@ export default async function Page({
 }) {
   const location = params?.geoLocation?.[0]!;
 
-  return await (<CurrentWeather location={location} />);
+  return <CurrentWeather location={location} />;
 }
