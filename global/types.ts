@@ -4,7 +4,7 @@ export type CurrentWeather = {
 }
 
 export type Data = {
-    time:   Date;
+    time:   string;
     values: Values;
 }
 
@@ -38,7 +38,16 @@ export type Values = {
     windSpeed:  number;
 }
 
-export type GetCurrentWeatherData = (location: string) => Promise<CurrentWeather>;
+export type WeatherData = {
+    locationName: string;
+    date: string;
+    weatherCode: number;
+    temperature: number;
+}
+
+export type GetCurrentWeatherData = (location: string) => Promise<WeatherData>;
+
+export type GetSvgNameByWeatherCode = (weatherCode: number) => { svgName: string, weatherDescription: string };
 
 export type IPData = {
     ip:             string;
@@ -114,4 +123,25 @@ export type TimeZone = {
     offset:       string;
     is_dst:       boolean;
     current_time: Date;
+}
+
+export interface CurrentWeatherProps {
+    location: string;
+}
+
+export interface WeatherImageProps {
+    svgName: string;
+    weatherDescription: string;
+}
+
+export interface WeatherLocationProps {
+    locationName: string;
+}
+
+export interface WeatherDateProps {
+    utcDate: string;
+}
+
+export interface WeatherTemperatureProps {
+    temperature: number;
 }

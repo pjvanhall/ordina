@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse } from 'msw';
  
 export const handlers = [
   http.get('https://api.tomorrow.io/v4/weather/realtime', ({ request }) => {
@@ -24,6 +24,6 @@ export const handlers = [
           windSpeed:  0,}},
       };
 
-    return HttpResponse.json(currentWeather)
+    return HttpResponse.json(currentWeather);
   }),
-]
+];

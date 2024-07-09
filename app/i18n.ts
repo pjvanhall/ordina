@@ -1,4 +1,4 @@
-import 'server-only'
+import 'server-only';
  
 const dictionaries: Record<string, any> = {
   "en": () =>
@@ -8,4 +8,4 @@ const dictionaries: Record<string, any> = {
  
 } as const;
  
-export const getDictionary = async (locale: string) => dictionaries[locale]()
+export const getDictionary = async (locale: string) => dictionaries[locale]();
