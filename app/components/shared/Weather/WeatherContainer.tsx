@@ -1,5 +1,5 @@
 import { WeatherContainerProps, WeatherData } from "@/global/types";
-import { getSvgNameAndWeatherDescriptionByWeatherCode } from "./Weather.helpers";
+import { getSvgNameAndWeatherDescriptionByWeatherCode } from "./Weather.utils";
 import { WeatherImage } from "./WeatherImage";
 import { WeatherTemperature } from "./WeatherTemperature";
 import { WeatherLocation } from "./WeatherLocation";
