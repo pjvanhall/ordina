@@ -2,7 +2,10 @@ import { CurrentWeatherProps } from "@/global/types";
 import { WeatherContainer } from "../shared/Weather/WeatherContainer";
 import { getCurrentWeatherData } from "./CurrentWeather.requests";
 
-export const CurrentWeather = async ({ geoLocation }: CurrentWeatherProps) => {
+export const CurrentWeather = async ({
+  geoLocation,
+  lang,
+}: CurrentWeatherProps) => {
   const { location, date, weatherCode, temperature } =
     await getCurrentWeatherData(geoLocation);
 
@@ -12,6 +15,7 @@ export const CurrentWeather = async ({ geoLocation }: CurrentWeatherProps) => {
       date={date}
       weatherCode={weatherCode}
       temperature={temperature}
+      lang={lang}
     />
   );
 };

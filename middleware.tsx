@@ -2,8 +2,9 @@ import { NextResponse, NextRequest } from "next/server";
 import { IPData } from "./global/types";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
+import { getGeoLocationRegex } from "./app/utils/regex";
 
-const locales = ["en-US", "nl-NL", "nl"];
+const locales = ["en", "nl"];
 
 // Get the preferred locale, similar to the above or using a library
 const getLocale = (request: NextRequest) => {
@@ -11,7 +12,7 @@ const getLocale = (request: NextRequest) => {
   request.headers.forEach((value, key) => (negotiatorHeaders[key] = value));
 
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
-  const defaultLocale = "nl-NL";
+  const defaultLocale = "nl";
 
   return match(languages, locales, defaultLocale);
 };
@@ -27,9 +28,9 @@ const pathnameHasLocale = (request: NextRequest) => {
 const pathnameHasGeoLocation = (request: NextRequest) => {
   const { pathname } = request.nextUrl;
 
-  const re = /^.*(\/)((\-?|\+?)?\d+(\.\d+)?),\s*((\-?|\+?)?\d+(\.\d+)?).*$/;
+  const geoLocationRegex = getGeoLocationRegex();
 
-  return re.test(pathname);
+  return geoLocationRegex.test(pathname);
 };
 
 const getIpFromRequest = (request: NextRequest) => {
@@ -57,7 +58,7 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.redirect(request.nextUrl);
   }
 
-  if (pathnameHasLocale(request) && !pathnameHasGeoLocation(request)) {
+  if (!pathnameHasGeoLocation(request)) {
     const ip = getIpFromRequest(request);
 
     if (ip !== null) {

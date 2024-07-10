@@ -129,6 +129,7 @@ export type TimeZone = {
 
 export interface CurrentWeatherProps {
     geoLocation: string;
+    lang: string
 }
 
 export interface WeatherImageProps {
@@ -137,7 +138,7 @@ export interface WeatherImageProps {
 }
 
 export interface WeatherLocationProps {
-    location: {lat: number, lon: number};
+    locationName: string;
 }
 
 export interface WeatherDateProps {
@@ -151,4 +152,70 @@ export interface WeatherTemperatureProps {
 export type SearchCityProps = {
     lang: string;
 }
+
+export type NavbarProps = {
+    lang: string;
+}
+
+export interface WeatherContainerProps {
+    lang: string
+    weatherCode: number;
+    date:string;
+    location: {lat: number, lon: number};
+    temperature: number;
+}
+
+export interface RootLayoutProps {
+    children: React.ReactNode;
+    params: { lang: string };
+  }
+
+  export interface City {
+    name:            string;
+    name_preferred:  string;
+    mapbox_id:       string;
+    feature_type:    string;
+    full_address:    string;
+    place_formatted: string;
+    context:         Context;
+    coordinates:     Coordinates;
+    bbox:            number[];
+    language:        string;
+    maki:            string;
+    metadata:        Metadata;
+  }
+  
+  export interface Context {
+    country: Country | undefined;
+    region:  Region;
+    place:   Place;
+  }
+  
+  export interface Country {
+    id:                   string;
+    name:                 string;
+    country_code:         string;
+    country_code_alpha_3: string;
+  }
+  
+  export interface Place {
+    id:   string;
+    name: string;
+  }
+  
+  export interface Region {
+    id:               string;
+    name:             string;
+    region_code:      string;
+    region_code_full: string;
+  }
+  
+  export interface Coordinates {
+    latitude:  number;
+    longitude: number;
+  }
+  
+  export interface Metadata {
+  }
+  
   

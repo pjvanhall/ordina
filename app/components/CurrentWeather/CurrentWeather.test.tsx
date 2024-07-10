@@ -29,7 +29,7 @@ describe("Page", () => {
       "https://api.tomorrow.io/v4/weather/realtime";
     process.env.TOMORROW_API_KEY = "xxxxxx";
 
-    const Result = await CurrentWeather({ location: "Tiel" });
+    const Result = await CurrentWeather({ geoLocation: "Tiel", lang: "en" });
 
     const { container } = render(Result);
 

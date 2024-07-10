@@ -5,7 +5,7 @@ export const getCurrentWeatherData: GetCurrentWeatherData = async (geoLocation) 
     const options = {
       method: 'GET',
       headers: {accept: 'application/json'},
-      next: { revalidate: 600 }
+      next: { revalidate: 3600 }
     };
   
     const response = await fetch(`${process.env.TOMORROW_API_URL}?location=${geoLocation}&apikey=${process.env.TOMORROW_API_KEY}`, options);

@@ -1,11 +1,30 @@
 "use client";
 
-import { SearchCityProps } from "@/global/types";
+import { City, SearchCityProps } from "@/global/types";
 import { SearchBox } from "@mapbox/search-js-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { getGeoLocationRegex } from "@/app/utils/regex";
 
 const SearchCity = ({ lang }: SearchCityProps) => {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState<City | null>(null);
+  const { push } = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (city) {
+      const geoLocationRegex = getGeoLocationRegex();
+
+      const arr = geoLocationRegex.exec(pathname);
+
+      const path = pathname.replace(
+        arr![0],
+        `/${city?.coordinates.latitude},${city?.coordinates.longitude}/`
+      );
+
+      push(path);
+    }
+  }, [push, city, pathname]);
 
   return (
     <SearchBox
@@ -14,10 +33,9 @@ const SearchCity = ({ lang }: SearchCityProps) => {
         language: lang,
         types: "city",
       }}
-      placeholder=""
-      value={city}
-      onRetrieve={(d) => {
-        setCity(d.features[0].properties.full_address);
+      value={city?.full_address ?? ""}
+      onRetrieve={(searchBoxRetrieveResponse) => {
+        setCity(searchBoxRetrieveResponse.features[0].properties as City);
       }}
     />
   );

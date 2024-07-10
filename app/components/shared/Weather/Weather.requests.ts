@@ -4,12 +4,9 @@ export const getLocationData: GetLocationData = async (longitude, latitude, lan)
     const options = {
       method: 'GET',
       headers: {accept: 'application/json'},
-      next: { revalidate: 600 }
     };
   
-    console.log('III', longitude, latitude, lan);
-
-    const response = await fetch(`${process.env.MAPBOX_API_URL}?longitude=${longitude}&latitude=${latitude}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`, options);
+    const response = await fetch(`${process.env.MAPBOX_API_URL}/${latitude},${longitude}.json?types=place&language=${lan}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`, options);
    
     if (!response.ok) {
       const res = await response.json();
