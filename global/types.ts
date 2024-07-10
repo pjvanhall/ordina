@@ -39,13 +39,15 @@ export type Values = {
 }
 
 export type WeatherData = {
-    locationName: string;
+    location: {lat: number, lon: number};
     date: string;
     weatherCode: number;
     temperature: number;
 }
 
 export type GetCurrentWeatherData = (location: string) => Promise<WeatherData>;
+
+export type GetLocationData = (longitude: number, latitude: number, lan: string) => Promise<any>;
 
 export type GetSvgNameByWeatherCode = (weatherCode: number) => { svgName: string, weatherDescription: string };
 
@@ -126,7 +128,7 @@ export type TimeZone = {
 }
 
 export interface CurrentWeatherProps {
-    location: string;
+    geoLocation: string;
 }
 
 export interface WeatherImageProps {
@@ -135,7 +137,7 @@ export interface WeatherImageProps {
 }
 
 export interface WeatherLocationProps {
-    locationName: string;
+    location: {lat: number, lon: number};
 }
 
 export interface WeatherDateProps {
@@ -145,3 +147,8 @@ export interface WeatherDateProps {
 export interface WeatherTemperatureProps {
     temperature: number;
 }
+
+export type SearchCityProps = {
+    lang: string;
+}
+  

@@ -3,9 +3,7 @@ import { CurrentWeather } from "@/app/components/CurrentWeather/CurrentWeather";
 export default async function Page({
   params,
 }: {
-  params: { geoLocation?: string[] };
+  params: { geoLocation: string };
 }) {
-  const location = params?.geoLocation?.[0]!;
-
-  return <CurrentWeather location={location} />;
+  return <CurrentWeather geoLocation={params.geoLocation} />;
 }

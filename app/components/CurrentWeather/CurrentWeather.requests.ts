@@ -1,14 +1,14 @@
 
 import { CurrentWeather, GetCurrentWeatherData } from "@/global/types";
 
-export const getCurrentWeatherData: GetCurrentWeatherData = async (location) => {
+export const getCurrentWeatherData: GetCurrentWeatherData = async (geoLocation) => {
     const options = {
       method: 'GET',
       headers: {accept: 'application/json'},
       next: { revalidate: 600 }
     };
   
-    const response = await fetch(`${process.env.TOMORROW_API_URL}?location=${location}&apikey=${process.env.TOMORROW_API_KEY}`, options);
+    const response = await fetch(`${process.env.TOMORROW_API_URL}?location=${geoLocation}&apikey=${process.env.TOMORROW_API_KEY}`, options);
    
     if (!response.ok) {
       const res = await response.json();
@@ -19,7 +19,7 @@ export const getCurrentWeatherData: GetCurrentWeatherData = async (location) => 
    
     const currentWeather: CurrentWeather =  await response.json();
 
-    const { location : { name : locationName }, data: {time: date, values: {weatherCode, temperature}} } = currentWeather;
+    const { location, data: {time: date, values: {weatherCode, temperature}} } = currentWeather;
 
-    return { locationName, date, weatherCode, temperature };
+    return { location, date, weatherCode, temperature };
   };

@@ -8,7 +8,7 @@ import { WeatherDate } from "./WeatherDate";
 export const WeatherContainer = ({
   weatherCode,
   date,
-  locationName,
+  location,
   temperature,
 }: WeatherData) => {
   const { svgName, weatherDescription } =
@@ -16,7 +16,7 @@ export const WeatherContainer = ({
 
   return (
     <>
-      <WeatherLocation locationName={locationName} />
+      <WeatherLocation location={location} />
       <WeatherDate utcDate={date} />
       <WeatherTemperature temperature={temperature} />
       <WeatherImage svgName={svgName} weatherDescription={weatherDescription} />
