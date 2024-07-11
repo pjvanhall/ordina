@@ -38,7 +38,7 @@ describe("Page", () => {
       </Suspense>
     );
 
-    await screen.findByText("");
+    await screen.findByText("21");
     expect(container).toBeDefined();
   });
 });
