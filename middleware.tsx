@@ -74,8 +74,8 @@ export const middleware = async (request: NextRequest) => {
 
       const rest = parts.slice(2);
 
-      const pathName = `${parts[1]}/${ipData.latitude},${
-        ipData.longitude
+      const pathName = `${parts[1]}/${ipData.longitude},${
+        ipData.latitude
       }/${rest.join("/")}`;
 
       request.nextUrl.pathname = pathName;

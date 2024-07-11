@@ -1,4 +1,4 @@
-import { CurrentWeather, GetCurrentWeatherData, GetLocationData } from "@/global/types";
+import { FeatureCollection, GetLocationData } from "@/global/types";
 
 export const getLocationData: GetLocationData = async (longitude, latitude, lan) => {
     const options = {
@@ -6,7 +6,7 @@ export const getLocationData: GetLocationData = async (longitude, latitude, lan)
       headers: {accept: 'application/json'},
     };
   
-    const response = await fetch(`${process.env.MAPBOX_API_URL}/${latitude},${longitude}.json?types=place&language=${lan}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`, options);
+    const response = await fetch(`${process.env.MAPBOX_API_URL}?longitude=${longitude}&latitude=${latitude}&types=place&language=${lan}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API_KEY}`, options);
    
     if (!response.ok) {
       const res = await response.json();
@@ -15,7 +15,7 @@ export const getLocationData: GetLocationData = async (longitude, latitude, lan)
       throw new Error(`Failed to fetch weather data. ${res.message}`);
     }
    
-    const locationData =  await response.json();
+    const featureCollection: FeatureCollection =  await response.json();
 
-    return locationData;
+    return featureCollection.features[0].properties;
   };

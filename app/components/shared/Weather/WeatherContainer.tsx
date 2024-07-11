@@ -1,27 +1,29 @@
-import { WeatherContainerProps, WeatherData } from "@/global/types";
+import { WeatherContainerProps } from "@/global/types";
 import { getSvgNameAndWeatherDescriptionByWeatherCode } from "./Weather.utils";
 import { WeatherImage } from "./WeatherImage";
 import { WeatherTemperature } from "./WeatherTemperature";
 import { WeatherLocation } from "./WeatherLocation";
 import { WeatherDate } from "./WeatherDate";
 import { getLocationData } from "./Weather.requests";
-import { mainModule } from "process";
+import { getRequestContext } from "@/app/utils/requestContext";
 
 export const WeatherContainer = async ({
   weatherCode,
   date,
-  location,
   temperature,
-  lang,
 }: WeatherContainerProps) => {
+  const longitude = +getRequestContext("longitude")!;
+  const latitude = +getRequestContext("latitude")!;
+  const lang = getRequestContext("lang")!;
+
   const { svgName, weatherDescription } =
     getSvgNameAndWeatherDescriptionByWeatherCode(weatherCode);
 
-  const res = await getLocationData(location.lat, location.lon, lang);
+  const locationProperties = await getLocationData(longitude, latitude, lang);
 
   return (
     <>
-      <WeatherLocation locationName={res.features[0].place_name} />
+      <WeatherLocation locationName={locationProperties.full_address} />
       <WeatherDate utcDate={date} />
       <WeatherTemperature temperature={temperature} />
       <WeatherImage svgName={svgName} weatherDescription={weatherDescription} />

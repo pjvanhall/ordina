@@ -45,9 +45,9 @@ export type WeatherData = {
     temperature: number;
 }
 
-export type GetCurrentWeatherData = (location: string) => Promise<WeatherData>;
+export type GetCurrentWeatherData = (longitude: number, latitude: number) => Promise<WeatherData>;
 
-export type GetLocationData = (longitude: number, latitude: number, lan: string) => Promise<any>;
+export type GetLocationData = (longitude: number, latitude: number, lan: string) => Promise<Properties>;
 
 export type GetSvgNameByWeatherCode = (weatherCode: number) => { svgName: string, weatherDescription: string };
 
@@ -128,8 +128,9 @@ export type TimeZone = {
 }
 
 export interface CurrentWeatherProps {
-    geoLocation: string;
-    lang: string
+    temperature: number;
+    weatherCode: number;
+    date: string
 }
 
 export interface WeatherImageProps {
@@ -158,10 +159,8 @@ export type NavbarProps = {
 }
 
 export interface WeatherContainerProps {
-    lang: string
     weatherCode: number;
     date:string;
-    location: {lat: number, lon: number};
     temperature: number;
 }
 
@@ -170,52 +169,77 @@ export interface RootLayoutProps {
     params: { lang: string };
   }
 
-  export interface City {
-    name:            string;
-    name_preferred:  string;
+  export interface FeatureCollection {
+    type:        string;
+    features:    Feature[];
+    attribution: string;
+}
+
+export interface Feature {
+    type:       string;
+    id:         string;
+    geometry:   Geometry;
+    properties: Properties;
+}
+
+export interface Geometry {
+    type:        string;
+    coordinates: number[];
+}
+
+export interface Properties {
     mapbox_id:       string;
     feature_type:    string;
     full_address:    string;
-    place_formatted: string;
-    context:         Context;
+    name:            string;
+    name_preferred:  string;
     coordinates:     Coordinates;
+    place_formatted: string;
     bbox:            number[];
-    language:        string;
-    maki:            string;
-    metadata:        Metadata;
-  }
-  
-  export interface Context {
-    country: Country | undefined;
+    context:         Context;
+}
+
+export interface Context {
     region:  Region;
+    country: Country;
     place:   Place;
-  }
-  
-  export interface Country {
-    id:                   string;
+}
+
+export interface Country {
+    mapbox_id:            string;
     name:                 string;
+    wikidata_id:          string;
     country_code:         string;
     country_code_alpha_3: string;
-  }
-  
-  export interface Place {
-    id:   string;
-    name: string;
-  }
-  
-  export interface Region {
-    id:               string;
+    translations:         Translations;
+}
+
+export interface Translations {
+    translation: Translation;
+}
+
+export interface Translation {
+    language: string;
+    name:     string;
+}
+
+export interface Place {
+    mapbox_id:    string;
+    name:         string;
+    translations: Translations;
+    wikidata_id:  string;
+}
+
+export interface Region {
+    mapbox_id:        string;
     name:             string;
+    wikidata_id:      string;
     region_code:      string;
     region_code_full: string;
-  }
-  
-  export interface Coordinates {
-    latitude:  number;
+    translations:     Translations;
+}
+
+export interface Coordinates {
     longitude: number;
-  }
-  
-  export interface Metadata {
-  }
-  
-  
+    latitude:  number;
+}

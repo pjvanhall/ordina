@@ -1,13 +1,13 @@
 "use client";
 
-import { City, SearchCityProps } from "@/global/types";
+import { Properties, SearchCityProps } from "@/global/types";
 import { SearchBox } from "@mapbox/search-js-react";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { getGeoLocationRegex } from "@/app/utils/regex";
 
 const SearchCity = ({ lang }: SearchCityProps) => {
-  const [city, setCity] = useState<City | null>(null);
+  const [city, setCity] = useState<Properties | null>(null);
   const { push } = useRouter();
   const pathname = usePathname();
 
@@ -19,7 +19,7 @@ const SearchCity = ({ lang }: SearchCityProps) => {
 
       const path = pathname.replace(
         arr![0],
-        `/${city?.coordinates.latitude},${city?.coordinates.longitude}/`
+        `/${city?.coordinates.longitude},${city?.coordinates.latitude}/`
       );
 
       push(path);
