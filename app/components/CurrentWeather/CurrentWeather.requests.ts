@@ -19,8 +19,6 @@ export const getCurrentWeatherData: GetCurrentWeatherData = async (longitude, la
    
     const currentWeather: CurrentWeather =  await response.json();
 
-    console.log("GetCurrentWeatherData");
-
     const { location, data: {time: date, values: {weatherCode, temperature}} } = currentWeather;
 
     return { location, date, weatherCode, temperature };
